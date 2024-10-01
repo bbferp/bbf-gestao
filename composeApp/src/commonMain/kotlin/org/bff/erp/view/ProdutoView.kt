@@ -56,7 +56,7 @@ fun adicionarProduto(){
                     modifier = Modifier.fillMaxWidth(),
                     colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor)
                 ) {
-                    Text(text = "Enviar", color = Color.White)
+                    Text(text = "Cadastrar", color = Color.White)
                 }
             }
         }
