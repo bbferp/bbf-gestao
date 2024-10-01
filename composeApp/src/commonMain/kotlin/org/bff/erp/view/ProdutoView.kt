@@ -18,7 +18,7 @@ fun produtosScreen() {
 }
 
 @Composable
-fun adicionarProduto(){
+fun adicionarProduto() {
     var nomeProduto by remember { mutableStateOf("") }
 
     Box(
