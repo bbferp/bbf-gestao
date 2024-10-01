@@ -1,37 +1,58 @@
 package org.bff.erp
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import org.jetbrains.compose.resources.painterResource
+import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.flow.MutableStateFlow
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.bff.erp.view.produtosScreen
 
-import bbf_gestao.composeapp.generated.resources.Res
-import bbf_gestao.composeapp.generated.resources.compose_multiplatform
+var itemMenuSelected = MutableStateFlow(0)
+
 
 @Composable
 @Preview
 fun App() {
     MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
-        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-            Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
-            }
-            AnimatedVisibility(showContent) {
-                val greeting = remember { Greeting().greet() }
-                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                    Image(painterResource(Res.drawable.compose_multiplatform), null)
-                    Text("Compose: $greeting")
+        setupNavigation()
+        navigationRail()
+    }
+}
+
+@Composable
+fun navigationRail() {
+    val items = listOf("Produtos")
+    val icons = listOf(
+        Icons.Filled.Edit,
+
+        )
+    val itemSelected by itemMenuSelected.collectAsState()
+
+    NavigationRail(
+        modifier = Modifier.width(72.dp),
+        backgroundColor = MaterialTheme.colors.background,
+        elevation = 8.dp
+    ) {
+        items.forEachIndexed { index, item ->
+            NavigationRailItem(
+                icon = { Icon(icons[index], contentDescription = null) },
+                label = { Text(item) },
+                selected = itemSelected == index,
+                onClick = { itemMenuSelected.value = index
                 }
-            }
+            )
         }
+    }
+}
+
+@Composable
+fun setupNavigation() {
+    val itemSelected  = itemMenuSelected.collectAsState().value
+    when (itemSelected) {
+        0 -> produtosScreen()
     }
 }

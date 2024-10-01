@@ -1,0 +1,35 @@
+package org.bff.erp.util
+
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.darkColors
+import androidx.compose.material.lightColors
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+
+object DefaultColors {
+
+    val backgroundColor = Color(0xff3a597b)
+    val backgroundColum = Color(0xff304A66)
+    val cardBackgroundColor = Color(0xffDEDEDE)
+
+    private val LightColorPalette = lightColors(
+        primary = Color(0xff3a597b),
+        background = backgroundColor,
+        primaryVariant = Color(0xff3a597b),
+    )
+
+    private val DarkColorPalette = darkColors(
+        primary = Color(0xff3a597b),
+        primaryVariant = Color(0xff3a597b)
+    )
+
+    @Composable
+    fun MyAppTheme(
+        content: @Composable () -> Unit
+    ) {
+        MaterialTheme(
+            colors = LightColorPalette,
+            content = content
+        )
+    }
+}
