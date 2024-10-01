@@ -56,7 +56,6 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
-            implementation("io.ktor:ktor-client-cio:2.3.12")
 
         }
         commonMain.dependencies {
@@ -68,12 +67,12 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
-            implementation("io.ktor:ktor-client-cio:2.3.12")
+            implementation(libs.io.ktor.client.cio)
         }
+
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
-            implementation("io.ktor:ktor-client-cio:2.3.12")
         }
     }
 }
