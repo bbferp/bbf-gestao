@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import clienteScreen
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.bff.erp.util.DefaultColors.MyAppTheme
 import org.bff.erp.util.DefaultColors.backgroundColor
@@ -22,6 +23,7 @@ import org.bff.erp.viewModel.usuarioValidado
 import org.bff.erp.viewModel.validarUsuario
 
 var itemMenuSelected = MutableStateFlow(0)
+var itemCadastrarSubMenu = MutableStateFlow(-1)
 
 @Composable
 @Preview
@@ -30,10 +32,13 @@ fun App() {
         if (usuarioValidado.collectAsState().value) {
             setupNavigation()
             navigationRail()
+            setupNavigationCadastrar()
+
         } else {
-            //loginScreen()
+           // loginScreen()
             setupNavigation()
             navigationRail()
+            setupNavigationCadastrar()
         }
     }
 }
@@ -146,16 +151,20 @@ fun navigationRail() {
 
 @Composable
 fun setupNavigation() {
-    val itemSelected  = itemMenuSelected.collectAsState().value
-    when (itemSelected) {
-        0 -> dashBoardView()
-        1 -> cadastrarSubMenu()
-        2 -> pedidosScreen()
-        3 -> ordemServicoScreen()
-        4 -> vendasScreen()
-        5 -> financeiroSubMenu()
-        6 -> relatorioScreen()
-        7 -> faturamentoScreen()
+    itemMenuSelected.collectAsState().value.let {
+        if (it >= 0) {
+            itemCadastrarSubMenu.value = -1
+        }
+        when (it) {
+            0 -> dashBoardView()
+            1 -> cadastrarSubMenu()
+            2 -> pedidosScreen()
+            3 -> ordemServicoScreen()
+            4 -> vendasScreen()
+            5 -> financeiroSubMenu()
+            6 -> relatorioScreen()
+            7 -> faturamentoScreen()
+        }
     }
 }
 
@@ -196,7 +205,7 @@ fun financeiroSubMenu() {
 fun cadastrarSubMenu() {
     val submenuItems = listOf("Clientes", "Produtos", "Fornecedores", "Vendedores")
 
-    var selectedSubMenu by remember { mutableStateOf(-1) }
+    val selectedSubMenu by remember { mutableStateOf(-1) }
 
     Column(modifier = Modifier
         .width(200.dp)
@@ -207,7 +216,7 @@ fun cadastrarSubMenu() {
                 modifier = Modifier
                     .width(150.dp)
                     .background(cardBackgroundColor)
-                    .clickable { selectedSubMenu = index }
+                    .clickable { itemCadastrarSubMenu.value = index }
                     .padding(16.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -220,8 +229,18 @@ fun cadastrarSubMenu() {
             }
 
             if (selectedSubMenu == index) {
-
+                 itemCadastrarSubMenu.value = index
             }
         }
+    }
+}
+
+@Composable
+fun setupNavigationCadastrar() {
+    when (itemCadastrarSubMenu.collectAsState().value) {
+        0 -> clienteScreen()
+        1 -> produtosScreen()
+        2 -> fornecedoresScreen()
+        3 -> vendedoresScreen()
     }
 }
