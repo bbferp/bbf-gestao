@@ -10,7 +10,10 @@ object DefaultColors {
 
     val backgroundColor = Color(0xff3a597b)
     val backgroundColum = Color(0xff304A66)
+    val backgroundDash = Color(0xffF7F7F7)
     val cardBackgroundColor = Color(0xffDEDEDE)
+    var corFaturamento = Color(0xff01FA92)
+    var corDespesas = Color(0xffFA8989)
 
     private val LightColorPalette = lightColors(
         primary = Color(0xff3a597b),

@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import androidx.compose.material.icons.outlined.Edit
-import androidx.compose.material.icons.outlined.Send
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,10 +31,10 @@ fun App() {
             setupNavigation()
             navigationRail()
         } else {
-            loginScreen()
+            //loginScreen()
+            setupNavigation()
+            navigationRail()
         }
-        setupNavigation()
-        navigationRail()
     }
 }
 
