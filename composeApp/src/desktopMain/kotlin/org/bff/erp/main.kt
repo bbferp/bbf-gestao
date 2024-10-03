@@ -7,7 +7,7 @@ import androidx.compose.ui.window.rememberWindowState
 
 fun main() = application {
     val windowState = rememberWindowState(
-        width = 1080.dp,
+        width = 1250.dp,
         height = 720.dp
     )
     Window(

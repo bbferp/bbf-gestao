@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import clienteScreen
+import org.bff.erp.view.clienteScreen
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.bff.erp.util.DefaultColors.MyAppTheme
 import org.bff.erp.util.DefaultColors.backgroundColor
@@ -35,7 +35,7 @@ fun App() {
             setupNavigationCadastrar()
 
         } else {
-           // loginScreen()
+            //loginScreen()
             setupNavigation()
             navigationRail()
             setupNavigationCadastrar()
