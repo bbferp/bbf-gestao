@@ -1,5 +1,6 @@
 package org.bff.erp.viewModel
 
+import Cliente
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,4 +29,8 @@ fun enviarProdutos(produtoNome: String) {
         produto.nomeProduto = produtoNome
         setProdutoApi(produto)
     }
+}
+
+fun validarCadastroCliente(cliente: Cliente) {
+
 }

@@ -204,37 +204,42 @@ fun financeiroSubMenu() {
 @Composable
 fun cadastrarSubMenu() {
     val submenuItems = listOf("Clientes", "Produtos", "Fornecedores", "Vendedores")
+    val selectedSubMenu = remember { mutableStateOf(-1) }
+    val isMenuVisible = remember { mutableStateOf(true) }
 
-    val selectedSubMenu by remember { mutableStateOf(-1) }
+    if (isMenuVisible.value) {
+        Column(
+            modifier = Modifier
+                .width(200.dp)
+                .padding(start = 75.dp, top = 90.dp)
+        ) {
+            submenuItems.forEachIndexed { index, item ->
+                Row(
+                    modifier = Modifier
+                        .width(150.dp)
+                        .background(cardBackgroundColor)
+                        .clickable {
+                            selectedSubMenu.value = index
+                            isMenuVisible.value = false
+                        }
+                        .padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = item,
+                        fontSize = 12.sp
+                    )
 
-    Column(modifier = Modifier
-        .width(200.dp)
-        .padding(start = 75.dp, top = 90.dp)
-    ) {
-        submenuItems.forEachIndexed { index, item ->
-            Row(
-                modifier = Modifier
-                    .width(150.dp)
-                    .background(cardBackgroundColor)
-                    .clickable { itemCadastrarSubMenu.value = index }
-                    .padding(16.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                 text = item,
-                 fontSize = 12.sp
-                )
-
-                Spacer(modifier = Modifier.width(5.dp))
-            }
-
-            if (selectedSubMenu == index) {
-                 itemCadastrarSubMenu.value = index
+                    Spacer(modifier = Modifier.width(5.dp))
+                }
             }
         }
     }
-}
 
+    if (selectedSubMenu.value >= 0) {
+        itemCadastrarSubMenu.value = selectedSubMenu.value
+    }
+}
 @Composable
 fun setupNavigationCadastrar() {
     when (itemCadastrarSubMenu.collectAsState().value) {
