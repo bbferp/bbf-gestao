@@ -12,12 +12,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.bff.erp.view.clienteScreen
+import org.bff.erp.view.cadastrar.clienteScreen
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.bff.erp.util.DefaultColors.MyAppTheme
 import org.bff.erp.util.DefaultColors.backgroundColor
 import org.bff.erp.util.DefaultColors.cardBackgroundColor
 import org.bff.erp.view.*
+import org.bff.erp.view.cadastrar.fornecedoresScreen
+import org.bff.erp.view.cadastrar.produtosScreen
+import org.bff.erp.view.cadastrar.vendedoresScreen
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.bff.erp.viewModel.usuarioValidado
 import org.bff.erp.viewModel.validarUsuario

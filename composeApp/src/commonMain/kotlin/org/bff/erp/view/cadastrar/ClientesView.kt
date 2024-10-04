@@ -1,4 +1,4 @@
-package org.bff.erp.view
+package org.bff.erp.view.cadastrar
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -33,7 +33,7 @@ fun adicionarCliente() {
 
     Card(
         modifier = Modifier
-            .padding(start = 100.dp, end = 25.dp, top = 15.dp),
+            .padding(start = 100.dp, end = 25.dp, top = 105.dp),
         elevation = 4.dp
     ) {
         Column(
@@ -60,8 +60,7 @@ fun adicionarCliente() {
                     Text(
                         "Nome Cliente${if (cliente.value.nome.isEmpty() && errorMessage.isNotEmpty()) " *" else ""}",
                         style = TextStyle(
-                            fontSize = 12.sp,
-                            color = if (cliente.value.nome.isEmpty() && errorMessage.isNotEmpty()) Color.Red else Color.Black
+                            fontSize = 12.sp
                         )
                     )
                 },
@@ -124,8 +123,7 @@ fun adicionarCliente() {
                         Text(
                             "CNPJ/CPF${if (cliente.value.cnpj.isEmpty() && errorMessage.isNotEmpty()) " *" else ""}",
                             style = TextStyle(
-                                fontSize = 12.sp,
-                                color = if (cliente.value.cnpj.isEmpty() && errorMessage.isNotEmpty()) Color.Red else Color.Black
+                                fontSize = 12.sp
                             )
                         )
                     },
@@ -147,8 +145,7 @@ fun adicionarCliente() {
                         Text(
                             "E-mail${if (cliente.value.email.isEmpty() && errorMessage.isNotEmpty()) " *" else ""}",
                             style = TextStyle(
-                                fontSize = 12.sp,
-                                color = if (cliente.value.email.isEmpty() && errorMessage.isNotEmpty()) Color.Red else Color.Black
+                                fontSize = 12.sp
                             )
                         )
                     },
@@ -170,8 +167,7 @@ fun adicionarCliente() {
                         Text(
                             "Telefone${if (cliente.value.telefone.isEmpty() && errorMessage.isNotEmpty()) " *" else ""}",
                             style = TextStyle(
-                                fontSize = 12.sp,
-                                color = if (cliente.value.telefone.isEmpty() && errorMessage.isNotEmpty()) Color.Red else Color.Black
+                                fontSize = 12.sp
                             )
                         )
                     },
@@ -194,8 +190,7 @@ fun adicionarCliente() {
                         Text(
                             "Data de Nascimento${if (cliente.value.dataNascimento.isEmpty() && errorMessage.isNotEmpty()) " *" else ""}",
                             style = TextStyle(
-                                fontSize = 12.sp,
-                                color = if (cliente.value.dataNascimento.isEmpty() && errorMessage.isNotEmpty()) Color.Red else Color.Black
+                                fontSize = 12.sp
                             )
                         )
                     },
@@ -239,8 +234,7 @@ fun adicionarCliente() {
                     Text(
                         "Endereço${if (cliente.value.endereco.isEmpty() && errorMessage.isNotEmpty()) " *" else ""}",
                         style = TextStyle(
-                            fontSize = 12.sp,
-                            color = if (cliente.value.endereco.isEmpty() && errorMessage.isNotEmpty()) Color.Red else Color.Black
+                            fontSize = 12.sp
                         )
                     )
                 },
@@ -292,7 +286,7 @@ fun adicionarCliente() {
                         }
                     },
                     modifier = Modifier
-                        .padding(start = 350.dp)
+                        .padding(start = 400.dp)
                         .height(35.dp)
                         .width(250.dp),
                     colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor)

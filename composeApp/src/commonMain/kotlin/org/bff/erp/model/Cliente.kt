@@ -4,6 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 class Cliente {
+    var id = ""
     var nome = ""
     var nomeFantasia = ""
     var razaoSocial = ""

@@ -1,4 +1,4 @@
-package org.bff.erp.view
+package org.bff.erp.view.cadastrar
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -13,12 +13,13 @@ import org.bff.erp.util.DefaultColors.cardBackgroundColor
 import org.bff.erp.viewModel.enviarProdutos
 
 @Composable
-fun fornecedoresScreen() {
-adicionarFornecedor()
+fun produtosScreen() {
+    adicionarProduto()
 }
+
 @Composable
-fun adicionarFornecedor() {
-    var fornecedor by remember { mutableStateOf("") }
+fun adicionarProduto() {
+    var nomeProduto by remember { mutableStateOf("") }
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -36,9 +37,9 @@ fun adicionarFornecedor() {
                 verticalArrangement = Arrangement.Center,
             ) {
                 OutlinedTextField(
-                    value = fornecedor,
-                    onValueChange = { fornecedor = it },
-                    label = { Text("Fornecedor") },
+                    value = nomeProduto,
+                    onValueChange = { nomeProduto = it },
+                    label = { Text("Nome Produto") },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 24.dp),
@@ -50,7 +51,7 @@ fun adicionarFornecedor() {
 
                 Button(
                     onClick = {
-                        enviarProdutos(fornecedor)
+                     enviarProdutos(nomeProduto)
                     },
                     modifier = Modifier.fillMaxWidth(),
                     colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor)
