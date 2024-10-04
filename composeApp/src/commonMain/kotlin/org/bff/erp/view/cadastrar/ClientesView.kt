@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,9 +19,11 @@ import org.bff.erp.util.DefaultColors.backgroundColor
 import org.bff.erp.util.DefaultColors.cardBackgroundColor
 import org.bff.erp.viewModel.bindCadastroCliente
 import org.bff.erp.viewModel.retornoStatus
+import org.jetbrains.compose.resources.painterResource
 
 var updatePage = MutableStateFlow(false)
 var cliente = mutableStateOf(ClienteDto())
+var abrirControleCreditoView = mutableStateOf(false)
 
 @Composable
 fun clienteScreen() {
@@ -276,6 +280,7 @@ fun adicionarCliente() {
             }
 
             Row {
+                iconControleCredito(onClick = { abrirControleCreditoView.value = true })
                 Button(
                     onClick = {
                         errorMessage = ""
@@ -286,7 +291,7 @@ fun adicionarCliente() {
                         }
                     },
                     modifier = Modifier
-                        .padding(start = 400.dp)
+                        .padding(start = 200.dp)
                         .height(35.dp)
                         .width(250.dp),
                     colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor)
@@ -306,6 +311,30 @@ private fun observarRetornoStatus() {
             .padding(start = 18.dp),
         text = verificarRetornoStatus()
     )
+}
+
+@Composable
+private fun iconControleCredito(onClick: () -> Unit){
+    Row(modifier = Modifier.padding(8.dp)) {
+        IconButton(onClick = onClick) {
+            Icon(
+                imageVector = Icons.Default.Lock,
+                contentDescription = "Controle de Crédito"
+            )
+        }
+        Text(
+            text = "Controle de Crédito",
+            modifier = Modifier.padding(
+                start = 8.dp, top = 16.dp
+            ),
+            style = TextStyle(fontSize = 12.sp)
+        )
+    }
+}
+
+
+fun abrirControleCredito() {
+
 }
 
 @Composable
