@@ -17,4 +17,7 @@ class Cliente {
     var ie = ""
     var telefone = ""
     var observacao = ""
+    var tipoVenda: Set<String> = emptySet()
+    var formaAutorizada: Set<String> = emptySet()
+    var vendedor = ""
 }

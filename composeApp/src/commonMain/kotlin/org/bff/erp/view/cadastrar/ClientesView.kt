@@ -5,12 +5,13 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,16 +20,16 @@ import org.bff.erp.util.DefaultColors.backgroundColor
 import org.bff.erp.util.DefaultColors.cardBackgroundColor
 import org.bff.erp.viewModel.bindCadastroCliente
 import org.bff.erp.viewModel.retornoStatus
-import org.jetbrains.compose.resources.painterResource
 
 var updatePage = MutableStateFlow(false)
 var cliente = mutableStateOf(ClienteDto())
-var abrirControleCreditoView = mutableStateOf(false)
+var abrirControleCreditoView = MutableStateFlow(false)
 
 @Composable
 fun clienteScreen() {
     adicionarCliente()
     atualizaPagina()
+    abrirControleCredito()
 }
 
 @Composable
@@ -280,7 +281,7 @@ fun adicionarCliente() {
             }
 
             Row {
-                iconControleCredito(onClick = { abrirControleCreditoView.value = true })
+                iconControleCredito(onClick = { abrirControleCreditoView.value = !abrirControleCreditoView.value })
                 Button(
                     onClick = {
                         errorMessage = ""
@@ -322,6 +323,7 @@ private fun iconControleCredito(onClick: () -> Unit){
                 contentDescription = "Controle de Crédito"
             )
         }
+
         Text(
             text = "Controle de Crédito",
             modifier = Modifier.padding(
@@ -333,8 +335,93 @@ private fun iconControleCredito(onClick: () -> Unit){
 }
 
 
+@Composable
 fun abrirControleCredito() {
+    if (abrirControleCreditoView.collectAsState().value) {
+        Card(
+            modifier = Modifier.padding(96.dp),
+            elevation = 4.dp
+        ) {
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text(text = "Forma Autorizada", fontWeight = FontWeight.Bold)
 
+                val formaAutorizada = remember { mutableStateOf(setOf<String>()) }
+                cliente.value.formaAutorizada = formaAutorizada.value
+
+                val formas = listOf("Crediário", "Cheque", "Administradora")
+                formas.forEach { forma ->
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Checkbox(
+                            checked = forma in formaAutorizada.value,
+                            onCheckedChange = {
+                                formaAutorizada.value = if (it) {
+                                    formaAutorizada.value + forma
+                                } else {
+                                    formaAutorizada.value - forma
+                                }
+                            },
+                            colors =  CheckboxDefaults.colors(
+                                checkedColor = backgroundColor,
+                                uncheckedColor = Color.Gray
+                            )
+                        )
+                        Text(text = forma)
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Text(text = "Tipo de Venda", fontWeight = FontWeight.Bold)
+
+                val tipoVenda = remember { mutableStateOf(setOf<String>()) }
+                cliente.value.tipoVenda = tipoVenda.value
+
+                val tipos = listOf("Atacado", "Varejo", "Ambos")
+                tipos.forEach { tipo ->
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Checkbox(
+                            checked = tipo in tipoVenda.value,
+                            onCheckedChange = {
+                                tipoVenda.value = if (it) {
+                                    tipoVenda.value + tipo
+                                } else {
+                                    tipoVenda.value - tipo
+                                }
+                            },
+                            colors =  CheckboxDefaults.colors(
+                                checkedColor = backgroundColor,
+                                uncheckedColor = Color.Gray
+                            )
+                        )
+                        Text(text = tipo)
+                    }
+                }
+                Spacer(modifier = Modifier.height(16.dp))
+
+                OutlinedTextField(
+                    value = cliente.value.observacao,
+                    onValueChange = { cliente.value.observacao = it },
+                    label = {
+                        Text(
+                            "Limite de crédito",
+                            style = TextStyle(fontSize = 12.sp)
+                        )
+                    },
+
+                    textStyle = TextStyle(fontSize = 16.sp),
+                    modifier = Modifier.width(250.dp),
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = backgroundColor,
+                        focusedLabelColor = backgroundColor
+                    )
+                )
+            }
+        }
+    }
 }
 
 @Composable

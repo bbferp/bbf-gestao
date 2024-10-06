@@ -48,8 +48,11 @@ fun bindCadastroCliente(clienteDto: ClienteDto) {
             ie = clienteDto.ie
             telefone = clienteDto.telefone
             observacao = clienteDto.observacao
-
+            tipoVenda = clienteDto.tipoVenda
+            formaAutorizada = clienteDto.formaAutorizada
+            vendedor = clienteDto.vendedor
         }
+
         setCadastroCliente(cliente)
     }
 }
