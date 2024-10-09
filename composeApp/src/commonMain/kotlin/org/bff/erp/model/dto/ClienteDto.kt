@@ -18,6 +18,7 @@ class ClienteDto {
     var ie by mutableStateOf("")
     var telefone by mutableStateOf("")
     var observacao by mutableStateOf("")
+    var limiteCredito by mutableStateOf("")
     var tipoVenda: Set<String> = emptySet()
     var formaAutorizada: Set<String> = emptySet()
     var vendedor by mutableStateOf("")

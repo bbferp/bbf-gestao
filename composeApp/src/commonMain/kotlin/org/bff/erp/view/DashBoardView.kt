@@ -1,14 +1,11 @@
 package org.bff.erp.view
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,17 +14,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.bff.erp.model.Despesas
 import org.bff.erp.model.Faturamento
-import org.bff.erp.util.DefaultColors.backgroundDash
 import org.bff.erp.util.DefaultColors.corDespesas
 import org.bff.erp.util.DefaultColors.corFaturamento
 
 
+
 @Composable
-fun dashBoardView() {
+expect fun dashBoardView()
+
+
+@Composable
+fun loadDashBoardView() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(backgroundDash)
     ) {
         Card(
             modifier = Modifier

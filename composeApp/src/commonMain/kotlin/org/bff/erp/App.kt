@@ -129,7 +129,7 @@ fun navigationRail() {
 
     NavigationRail(
         modifier = Modifier.width(80.dp),
-        backgroundColor = MaterialTheme.colors.background,
+        backgroundColor = cardBackgroundColor,
         elevation = 8.dp
     ) {
         items.forEachIndexed { index, item ->
@@ -214,7 +214,7 @@ fun cadastrarSubMenu() {
     if (isMenuVisible.value) {
         Column(
             modifier = Modifier
-                .width(200.dp)
+                .width(250.dp)
                 .padding(start = 75.dp, top = 90.dp)
         ) {
             submenuItems.forEachIndexed { index, item ->
