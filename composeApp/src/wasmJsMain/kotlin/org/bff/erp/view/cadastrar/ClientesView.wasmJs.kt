@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Lock
@@ -16,21 +17,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.flow.MutableStateFlow
+import org.bff.erp.itemCadastrarSubMenu
+import org.bff.erp.itemMenuSelected
 import org.bff.erp.model.dto.ClienteDto
 import org.bff.erp.util.DefaultColors.backgroundColor
 import org.bff.erp.util.DefaultColors.cardBackgroundColor
 import org.bff.erp.viewModel.bindCadastroCliente
 import org.bff.erp.viewModel.retornoStatus
 
-var updatePage = MutableStateFlow(false)
+var limparCampos = MutableStateFlow(false)
 var cliente = mutableStateOf(ClienteDto())
 var abrirControleCreditoView = MutableStateFlow(false)
-
 
 @Composable
 actual fun clienteScreen() {
     adicionarCliente()
-    atualizaPagina()
+    LimparPagina()
     abrirControleCredito()
 }
 
@@ -48,16 +50,33 @@ fun adicionarCliente() {
                 .padding(8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            IconButton(
-                onClick = {
-                    updatePage.value = true
-                }) {
-                Icon (
-                    imageVector = Icons.Default.Clear,
-                    contentDescription = "limpar Página",
-                    modifier = Modifier
-                        .size(15.dp)
-                )
+            Row {
+                IconButton(
+                    onClick = {
+                        voltarHome()
+                    }) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Voltar",
+                        modifier = Modifier
+                            .size(15.dp)
+                    )
+                }
+
+                Spacer(modifier = Modifier.weight(1f))
+                IconButton(
+                    onClick = {
+                        limparCampos.value = true
+                    },
+
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Clear,
+                        contentDescription = "limpar Página",
+                        modifier = Modifier
+                            .size(15.dp)
+                    )
+                }
             }
 
             OutlinedTextField(
@@ -307,6 +326,11 @@ fun adicionarCliente() {
     }
 }
 
+fun voltarHome() {
+    itemMenuSelected.value = 0
+    itemCadastrarSubMenu.value = -1
+}
+
 @Composable
 private fun observarRetornoStatus() {
     Text(
@@ -336,7 +360,6 @@ private fun iconControleCredito(onClick: () -> Unit) {
         )
     }
 }
-
 
 @Composable
 fun abrirControleCredito() {
@@ -469,9 +492,12 @@ private fun validarCampos(cliente: ClienteDto): Boolean {
 }
 
 @Composable
-private fun atualizaPagina() {
-    if (updatePage.collectAsState().value) {
+private fun LimparPagina() {
+    if (limparCampos.collectAsState().value) {
         cliente.value = ClienteDto()
-        updatePage.value = false
+        limparCampos.value = false
+        retornoStatus.value = 0
     }
 }
+
+

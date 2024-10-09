@@ -155,7 +155,7 @@ fun navigationRail() {
 
 @Composable
 fun setupNavigation() {
-    itemMenuSelected.collectAsState().value.let {
+     itemMenuSelected.collectAsState().value.let {
         if (it >= 0) {
             itemCadastrarSubMenu.value = -1
         }
