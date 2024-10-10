@@ -6,16 +6,15 @@ import androidx.compose.runtime.setValue
 
 
 class ClienteDto {
+    var id by mutableStateOf("")
     var nome by mutableStateOf("")
     var nomeFantasia by mutableStateOf("")
     var razaoSocial by mutableStateOf("")
-    var cnpj by mutableStateOf("")
-    var cpf by mutableStateOf("")
+    var cnpj_cpf by mutableStateOf("")
     var endereco by mutableStateOf("")
     var email by mutableStateOf("")
     var dataNascimento by mutableStateOf("")
-    var rg by mutableStateOf("")
-    var ie by mutableStateOf("")
+    var rg_ie by mutableStateOf("")
     var telefone by mutableStateOf("")
     var observacao by mutableStateOf("")
     var limiteCredito by mutableStateOf("")

@@ -143,11 +143,11 @@ fun adicionarCliente() {
 
             Row {
                 OutlinedTextField(
-                    value = cliente.value.cnpj,
-                    onValueChange = { cliente.value.cnpj = it },
+                    value = cliente.value.cnpj_cpf,
+                    onValueChange = { cliente.value.cnpj_cpf = it },
                     label = {
                         Text(
-                            "CNPJ/CPF${if (cliente.value.cnpj.isEmpty() && errorMessage.isNotEmpty()) " *" else ""}",
+                            "CNPJ/CPF${if (cliente.value.cnpj_cpf.isEmpty() && errorMessage.isNotEmpty()) " *" else ""}",
                             style = TextStyle(
                                 fontSize = 12.sp
                             )
@@ -233,8 +233,8 @@ fun adicionarCliente() {
                 )
 
                 OutlinedTextField(
-                    value = cliente.value.rg,
-                    onValueChange = { cliente.value.rg = it },
+                    value = cliente.value.rg_ie,
+                    onValueChange = { cliente.value.rg_ie = it },
                     label = {
                         Text(
                             "RG/IE",
@@ -324,11 +324,6 @@ fun adicionarCliente() {
             }
         }
     }
-}
-
-fun voltarHome() {
-    itemMenuSelected.value = 0
-    itemCadastrarSubMenu.value = -1
 }
 
 @Composable
@@ -484,7 +479,7 @@ private fun verificarRetornoStatus(): String {
 
 private fun validarCampos(cliente: ClienteDto): Boolean {
     return cliente.nome.isNotEmpty() &&
-            cliente.cnpj.isNotEmpty() &&
+            cliente.rg_ie.isNotEmpty() &&
             cliente.endereco.isNotEmpty() &&
             cliente.telefone.isNotEmpty() &&
             cliente.email.isNotEmpty() &&
@@ -498,6 +493,11 @@ private fun LimparPagina() {
         limparCampos.value = false
         retornoStatus.value = 0
     }
+}
+
+private fun voltarHome() {
+    itemMenuSelected.value = 0
+    itemCadastrarSubMenu.value = -1
 }
 
 

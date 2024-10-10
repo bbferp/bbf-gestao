@@ -119,3 +119,43 @@ suspend fun getAllClientes(prefix: String, sufix: String): MutableList<Cliente> 
 
     return allClientesList
 }
+
+actual suspend fun setUpdateCliente(clientesList: MutableList<Cliente>) {
+    try {
+            // val prefix = usuarioLogado.value.nome
+            // val sufix = usuarioLogado.value.senha
+            val prefix = "aromas"
+            val sufix = "01"
+
+
+            XMLHttpRequest().apply {
+                open(
+                    "PUT",
+                    "https://$prefix-$sufix.$BASE/clientes"
+                )
+
+                setRequestHeader("Content-Type", "application/json")
+
+                onload = {
+                    if (status.toInt() == 200) {
+                        retornoStatus.value = 200
+                        println("Upload bem-sucedido: $responseText")
+
+                    } else {
+                        retornoStatus.value = 400
+                        error("Erro na requisição: $status $statusText")
+                    }
+                }
+                onerror = {
+                    retornoStatus.value = 400
+                    error("Erro na requisição: $status $statusText")
+                }
+                println("send requisição $clientesList")
+
+                send(Json.encodeToString(clientesList))
+            }
+    } catch (e: Exception) {
+        println("Erro: ${e.message}")
+    }
+}
+

@@ -17,6 +17,7 @@ kotlin = "2.0.20"
 kotlinx-coroutines = "1.8.1"
 kotlinx-serialization-json = "1.7.1"
 client-cio = "2.3.12"
+identityJvm = "202408.1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -34,6 +35,7 @@ androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle
 kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
 io-ktor-client-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "client-cio" }
+identity-jvm = { group = "com.android.identity", name = "identity-jvm", version.ref = "identityJvm" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

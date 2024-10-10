@@ -9,3 +9,5 @@ expect suspend fun setUsuarioLogado(usuario: Usuario)
 expect suspend fun setProdutoApi(produtos: Produtos)
 
 expect suspend fun setCadastroCliente(cliente: Cliente)
+
+expect suspend fun setUpdateCliente(clientesList: MutableList<Cliente>)

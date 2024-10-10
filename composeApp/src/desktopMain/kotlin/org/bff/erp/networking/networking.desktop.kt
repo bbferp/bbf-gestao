@@ -10,3 +10,6 @@ actual suspend fun setUsuarioLogado(usuario: Usuario) {}
 
 actual suspend fun setCadastroCliente(cliente: Cliente) {
 }
+
+actual suspend fun setUpdateCliente(clientesList: MutableList<Cliente>) {
+}
