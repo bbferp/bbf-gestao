@@ -45,6 +45,7 @@ import org.w3c.dom.ImageBitmap
 var abrirConfiguracaoClienteSelecionado = MutableStateFlow(false)
 var abrirImagemCliente = MutableStateFlow(false)
 var clienteDto = MutableStateFlow(ClienteDto())
+var showDialog = MutableStateFlow(false)
 
 @Composable
 fun clientesCadastrados() {
@@ -153,10 +154,14 @@ fun loadClienteCadastrado() {
 
                     IconButton(
                         onClick = {
-                            val imageUrl = "https://aromas-01.s3.us-east-2.amazonaws.com/imagens/${clienteDto.value.id}"
-                            val windowFeatures = "width=600,height=400"
-                            window.open(imageUrl, "_blank", windowFeatures)
-                            abrirImagemCliente.value = false
+                            if(clienteDto.value.temImagem) {
+                                val imageUrl = "https://aromas-01.s3.us-east-2.amazonaws.com/imagens/${clienteDto.value.id}"
+                                val windowFeatures = "width=600,height=400"
+                                window.open(imageUrl, "_blank", windowFeatures)
+                                abrirImagemCliente.value = false
+                            } else {
+                                showDialog.value = true
+                            }
                         },
                         ) {
                         Icon(
@@ -411,13 +416,17 @@ fun loadClienteCadastrado() {
                 abrirConfiguracaoCliente()
             }
         }
-    }
-}
-
-@Composable
-fun loadImage() {
-    if (abrirImagemCliente.collectAsState().value) {
-
+        if (showDialog.collectAsState().value)
+            AlertDialog(
+                onDismissRequest = { showDialog.value = false },
+                title = { Text("Aviso") },
+                text = { Text("Este cliente não possui uma imagem disponível.") },
+                confirmButton = {
+                    Button(onClick = { showDialog.value = false }) {
+                        Text("OK")
+                    }
+                }
+            )
     }
 }
 

@@ -64,7 +64,12 @@ actual suspend fun setCadastroCliente(cliente: Cliente) {
            // val sufix = usuarioLogado.value.senha
             val prefix = "aromas"
             val sufix = "01"
-            imagemSelecionada.value?.let { setImageCliente(it,cliente) }
+
+            imagemSelecionada.value?.let {
+                setImageCliente(it,cliente)
+                cliente.clienteTemImagem = true
+            }
+
 
             allClientesList = getAllClientes(prefix,sufix)
             allClientesList.add(cliente)

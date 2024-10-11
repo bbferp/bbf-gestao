@@ -21,4 +21,5 @@ class ClienteDto {
     var tipoVenda: Set<String> = emptySet()
     var formaAutorizada: Set<String> = emptySet()
     var vendedor by mutableStateOf("")
+    var temImagem by mutableStateOf(false)
 }

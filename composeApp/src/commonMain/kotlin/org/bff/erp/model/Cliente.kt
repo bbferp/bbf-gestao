@@ -23,6 +23,7 @@ class Cliente {
     var tipoVenda: Set<String> = emptySet()
     var formaAutorizada: Set<String> = emptySet()
     var vendedor = ""
+    var clienteTemImagem = false
 }
 
 fun clienteToClienteDTO(cliente:Cliente):ClienteDto {
@@ -42,5 +43,6 @@ fun clienteToClienteDTO(cliente:Cliente):ClienteDto {
        tipoVenda = cliente.tipoVenda
        formaAutorizada = cliente.formaAutorizada
        vendedor = cliente.vendedor
+       temImagem = cliente.clienteTemImagem
    }
 }

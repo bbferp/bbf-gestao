@@ -357,8 +357,6 @@ fun setupImagem() {
     }
 }
 
-
-
 @Composable
 private fun observarRetornoStatus() {
     Text(
