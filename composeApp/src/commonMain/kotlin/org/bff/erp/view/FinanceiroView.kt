@@ -28,7 +28,7 @@ fun adicionarFinanceiro() {
             modifier = Modifier
                 .align(Alignment.Center)
                 .size(width = 320.dp, height = 320.dp)
-                .padding(16.dp)
+                .padding(start = 100.dp)
         ) {
             Column(
                 modifier = Modifier.background(color = cardBackgroundColor)
@@ -36,9 +36,9 @@ fun adicionarFinanceiro() {
                 verticalArrangement = Arrangement.Center,
             ) {
                 OutlinedTextField(
-                    value = financeiro,
-                    onValueChange = { financeiro = it },
-                    label = { Text("Financeiro") },
+                    value = "",
+                    onValueChange = { "" },
+                    label = { Text("Ambiente em desenvolvimento") },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 24.dp),
@@ -47,16 +47,6 @@ fun adicionarFinanceiro() {
                         focusedLabelColor = backgroundColor
                     )
                 )
-
-                Button(
-                    onClick = {
-                        enviarProdutos(financeiro)
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor)
-                ) {
-                    Text(text = "Cadastrar", color = Color.White)
-                }
             }
         }
     }

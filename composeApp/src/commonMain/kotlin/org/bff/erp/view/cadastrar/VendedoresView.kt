@@ -20,45 +20,28 @@ adicionarVendedor()
 @Composable
 fun adicionarVendedor() {
     var vendedor by remember { mutableStateOf("") }
-
-    Box(
-        modifier = Modifier.fillMaxSize()
-            .background(backgroundColor)
+    Card(
+        modifier = Modifier
+            .size(width = 320.dp, height = 320.dp)
+            .padding(start = 100.dp)
     ) {
-        Card(
-            modifier = Modifier
-                .align(Alignment.Center)
-                .size(width = 320.dp, height = 320.dp)
-                .padding(16.dp)
+        Column(
+            modifier = Modifier.background(color = cardBackgroundColor)
+                .padding(16.dp),
+            verticalArrangement = Arrangement.Center,
         ) {
-            Column(
-                modifier = Modifier.background(color = cardBackgroundColor)
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.Center,
-            ) {
-                OutlinedTextField(
-                    value = vendedor,
-                    onValueChange = { vendedor = it },
-                    label = { Text("Vendedor") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 24.dp),
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = backgroundColor,
-                        focusedLabelColor = backgroundColor
-                    )
+            OutlinedTextField(
+                value = "",
+                onValueChange = { "" },
+                label = { Text("Ambiente em desenvolvimento") },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 24.dp),
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    focusedBorderColor = backgroundColor,
+                    focusedLabelColor = backgroundColor
                 )
-
-                Button(
-                    onClick = {
-                        enviarProdutos(vendedor)
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor)
-                ) {
-                    Text(text = "Cadastrar", color = Color.White)
-                }
-            }
+            )
         }
     }
 }

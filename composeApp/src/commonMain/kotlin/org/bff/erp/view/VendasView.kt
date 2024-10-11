@@ -29,7 +29,7 @@ fun adicionarVenda() {
             modifier = Modifier
                 .align(Alignment.Center)
                 .size(width = 320.dp, height = 320.dp)
-                .padding(16.dp)
+                .padding(start = 100.dp)
         ) {
             Column(
                 modifier = Modifier.background(color = cardBackgroundColor)
@@ -37,9 +37,9 @@ fun adicionarVenda() {
                 verticalArrangement = Arrangement.Center,
             ) {
                 OutlinedTextField(
-                    value = venda,
-                    onValueChange = { venda = it },
-                    label = { Text("Venda") },
+                    value = "",
+                    onValueChange = { "" },
+                    label = { Text("Ambiente em desenvolvimento") },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 24.dp),
@@ -48,16 +48,6 @@ fun adicionarVenda() {
                         focusedLabelColor = backgroundColor
                     )
                 )
-
-                Button(
-                    onClick = {
-                        enviarProdutos(venda)
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor)
-                ) {
-                    Text(text = "Cadastrar", color = Color.White)
-                }
             }
         }
     }

@@ -29,7 +29,7 @@ fun adicionarRelatorio() {
             modifier = Modifier
                 .align(Alignment.Center)
                 .size(width = 320.dp, height = 320.dp)
-                .padding(16.dp)
+                .padding(start = 100.dp)
         ) {
             Column(
                 modifier = Modifier.background(color = cardBackgroundColor)
@@ -37,9 +37,9 @@ fun adicionarRelatorio() {
                 verticalArrangement = Arrangement.Center,
             ) {
                 OutlinedTextField(
-                    value = relatorio,
-                    onValueChange = { relatorio = it },
-                    label = { Text("Relatório") },
+                    value = "",
+                    onValueChange = { "" },
+                    label = { Text("Ambiente em desenvolvimento") },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 24.dp),
@@ -48,16 +48,6 @@ fun adicionarRelatorio() {
                         focusedLabelColor = backgroundColor
                     )
                 )
-
-                Button(
-                    onClick = {
-                        enviarProdutos(relatorio)
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor)
-                ) {
-                    Text(text = "Cadastrar", color = Color.White)
-                }
             }
         }
     }

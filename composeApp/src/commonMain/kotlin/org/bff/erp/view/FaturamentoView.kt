@@ -29,7 +29,7 @@ fun adicionarFaturamento() {
             modifier = Modifier
                 .align(Alignment.Center)
                 .size(width = 320.dp, height = 320.dp)
-                .padding(16.dp)
+                .padding(start = 100.dp)
         ) {
             Column(
                 modifier = Modifier.background(color = cardBackgroundColor)
@@ -39,7 +39,7 @@ fun adicionarFaturamento() {
                 OutlinedTextField(
                     value = faturamento,
                     onValueChange = { faturamento = it },
-                    label = { Text("Faturamento") },
+                    label = { Text("Ambiente em desenvolvimento") },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 24.dp),
@@ -48,16 +48,6 @@ fun adicionarFaturamento() {
                         focusedLabelColor = backgroundColor
                     )
                 )
-
-                Button(
-                    onClick = {
-                        enviarProdutos(faturamento)
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor)
-                ) {
-                    Text(text = "Cadastrar", color = Color.White)
-                }
             }
         }
     }
