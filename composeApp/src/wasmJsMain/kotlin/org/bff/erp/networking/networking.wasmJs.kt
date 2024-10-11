@@ -1,5 +1,6 @@
 package org.bff.erp.networking
 
+import imagemSelecionada
 import kotlinx.browser.window
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -13,6 +14,7 @@ import org.bff.erp.model.Usuario
 import org.bff.erp.util.BaseApi.BASE
 import org.bff.erp.viewModel.retornoStatus
 import org.bff.erp.viewModel.usuarioValidado
+import org.w3c.files.File
 import org.w3c.xhr.XMLHttpRequest
 
 actual suspend fun setProdutoApi(produtos: Produtos) {}
@@ -62,6 +64,7 @@ actual suspend fun setCadastroCliente(cliente: Cliente) {
            // val sufix = usuarioLogado.value.senha
             val prefix = "aromas"
             val sufix = "01"
+            imagemSelecionada.value?.let { setImageCliente(it,cliente) }
 
             allClientesList = getAllClientes(prefix,sufix)
             allClientesList.add(cliente)
@@ -154,6 +157,43 @@ actual suspend fun setUpdateCliente(clientesList: MutableList<Cliente>) {
 
                 send(Json.encodeToString(clientesList))
             }
+    } catch (e: Exception) {
+        println("Erro: ${e.message}")
+    }
+}
+
+fun setImageCliente(file: File, cliente: Cliente) {
+    try {
+        // val prefix = usuarioLogado.value.nome
+        // val sufix = usuarioLogado.value.senha
+        val prefix = "aromas"
+        val sufix = "01"
+
+
+        XMLHttpRequest().apply {
+            open(
+                "PUT",
+                "https://$prefix-$sufix.$BASE/imagens/${cliente.id}"
+            )
+
+            onload = {
+                if (status.toInt() == 200) {
+                    retornoStatus.value = 200
+                    println("Upload bem-sucedido: $responseText")
+
+                } else {
+                    retornoStatus.value = 400
+                    error("Erro na requisição: $status $statusText")
+                }
+            }
+            onerror = {
+                retornoStatus.value = 400
+                error("Erro na requisição: $status $statusText")
+            }
+
+            send(file)
+            imagemSelecionada.value = null
+        }
     } catch (e: Exception) {
         println("Erro: ${e.message}")
     }

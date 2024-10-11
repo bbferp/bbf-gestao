@@ -1,5 +1,6 @@
 package org.bff.erp.view.dashboard
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -8,15 +9,22 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Done
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.browser.document
+import kotlinx.browser.window
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.await
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.bff.erp.model.Cliente
@@ -30,14 +38,17 @@ import org.bff.erp.view.abrirClientesCadastradosView
 import org.bff.erp.view.clienteSelecionado
 import org.bff.erp.view.getAllClientesList
 import org.bff.erp.viewModel.convertDtoToCadastroCliente
+import org.w3c.dom.HTMLImageElement
+import org.w3c.dom.Image
+import org.w3c.dom.ImageBitmap
 
 var abrirConfiguracaoClienteSelecionado = MutableStateFlow(false)
+var abrirImagemCliente = MutableStateFlow(false)
 var clienteDto = MutableStateFlow(ClienteDto())
 
 @Composable
 fun clientesCadastrados() {
     fetchDataClientesCadastrados()
-
     if (abrirClientesCadastradosView.collectAsState().value) {
         abrirClienteSelecionado.value = false
         clienteSelecionado.value = Cliente()
@@ -135,6 +146,22 @@ fun loadClienteCadastrado() {
                         Icon(
                             imageVector = Icons.Default.Settings,
                             contentDescription = "limpar Página",
+                            modifier = Modifier
+                                .size(15.dp)
+                        )
+                    }
+
+                    IconButton(
+                        onClick = {
+                            val imageUrl = "https://aromas-01.s3.us-east-2.amazonaws.com/imagens/${clienteDto.value.id}"
+                            val windowFeatures = "width=600,height=400"
+                            window.open(imageUrl, "_blank", windowFeatures)
+                            abrirImagemCliente.value = false
+                        },
+                        ) {
+                        Icon(
+                            imageVector = Icons.Default.Info,
+                            contentDescription = "Imagem cliente",
                             modifier = Modifier
                                 .size(15.dp)
                         )
@@ -384,6 +411,13 @@ fun loadClienteCadastrado() {
                 abrirConfiguracaoCliente()
             }
         }
+    }
+}
+
+@Composable
+fun loadImage() {
+    if (abrirImagemCliente.collectAsState().value) {
+
     }
 }
 

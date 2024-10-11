@@ -4,10 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,16 +21,19 @@ import org.bff.erp.util.DefaultColors.backgroundColor
 import org.bff.erp.util.DefaultColors.cardBackgroundColor
 import org.bff.erp.viewModel.bindCadastroCliente
 import org.bff.erp.viewModel.retornoStatus
+import selecionarImage
 
 var limparCampos = MutableStateFlow(false)
 var cliente = mutableStateOf(ClienteDto())
 var abrirControleCreditoView = MutableStateFlow(false)
+var abrirCadastroImagemView = MutableStateFlow(false)
 
 @Composable
 actual fun clienteScreen() {
     adicionarCliente()
     LimparPagina()
     abrirControleCredito()
+    setupImagem()
 }
 
 @Composable
@@ -303,6 +303,8 @@ fun adicionarCliente() {
 
             Row {
                 iconControleCredito(onClick = { abrirControleCreditoView.value = !abrirControleCreditoView.value })
+                iconImagem(onClick = {abrirCadastroImagemView.value = !abrirControleCreditoView.value})
+
                 Button(
                     onClick = {
                         errorMessage = ""
@@ -325,6 +327,37 @@ fun adicionarCliente() {
         }
     }
 }
+
+@Composable
+fun iconImagem(onClick: () -> Unit) {
+    Row(modifier = Modifier
+        .padding(8.dp)) {
+        IconButton(onClick = onClick) {
+            Icon(
+                imageVector = Icons.Default.Menu,
+                contentDescription = "Cadastrar imagem"
+            )
+        }
+
+        Text(
+            text = "Selecionar Imagem",
+            modifier = Modifier.padding(
+                start = 8.dp, top = 16.dp
+            ),
+            style = TextStyle(fontSize = 12.sp)
+        )
+    }
+}
+
+@Composable
+fun setupImagem() {
+    if(abrirCadastroImagemView.collectAsState().value) {
+        selecionarImage()
+        abrirCadastroImagemView.value = false
+    }
+}
+
+
 
 @Composable
 private fun observarRetornoStatus() {

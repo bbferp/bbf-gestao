@@ -37,9 +37,7 @@ fun enviarProdutos(produtoNome: String) {
 
 fun bindCadastroCliente(clienteDto: ClienteDto) {
     CoroutineScope(Dispatchers.Main).launch {
-       convertDtoToCadastroCliente(clienteDto).let {
-           setCadastroCliente(it)
-       }
+        setCadastroCliente(convertDtoToCadastroCliente(clienteDto))
     }
 }
 
