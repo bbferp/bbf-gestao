@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import cadastrarCondPagamento
+import org.bff.erp.view.cadastrar.cadastrarCondPagamento
 import org.bff.erp.view.cadastrar.clienteScreen
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.bff.erp.util.DefaultColors.MyAppTheme

@@ -27,13 +27,15 @@ var limparCampos = MutableStateFlow(false)
 var cliente = mutableStateOf(ClienteDto())
 var abrirControleCreditoView = MutableStateFlow(false)
 var abrirCadastroImagemView = MutableStateFlow(false)
+var abrirCadastroAromas = MutableStateFlow(false)
 
 @Composable
 actual fun clienteScreen() {
     adicionarCliente()
-    LimparPagina()
+    limparPagina()
     abrirControleCredito()
     setupImagem()
+    aromasView()
 }
 
 @Composable
@@ -84,7 +86,7 @@ fun adicionarCliente() {
                 onValueChange = { cliente.value.nome = it },
                 label = {
                     Text(
-                        "Nome Cliente${if (cliente.value.nome.isEmpty() && errorMessage.isNotEmpty()) " *" else ""}",
+                        "Nome Cliente/RazãoSocial${if (cliente.value.nome.isEmpty() && errorMessage.isNotEmpty()) " *" else ""}",
                         style = TextStyle(
                             fontSize = 12.sp
                         )
@@ -112,25 +114,6 @@ fun adicionarCliente() {
                     )
                 },
 
-                textStyle = TextStyle(fontSize = 12.sp),
-                modifier = Modifier
-                    .height(60.dp)
-                    .fillMaxWidth(),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    focusedBorderColor = backgroundColor,
-                    focusedLabelColor = backgroundColor
-                )
-            )
-
-            OutlinedTextField(
-                value = cliente.value.razaoSocial,
-                onValueChange = { cliente.value.razaoSocial = it },
-                label = {
-                    Text(
-                        "Razão Social",
-                        style = TextStyle(fontSize = 12.sp)
-                    )
-                },
                 textStyle = TextStyle(fontSize = 12.sp),
                 modifier = Modifier
                     .height(60.dp)
@@ -304,6 +287,7 @@ fun adicionarCliente() {
             Row {
                 iconControleCredito(onClick = { abrirControleCreditoView.value = !abrirControleCreditoView.value })
                 iconImagem(onClick = {abrirCadastroImagemView.value = !abrirControleCreditoView.value})
+                iconCadastroAroma(onClick = {abrirCadastroAromas.value = !abrirCadastroAromas.value})
 
                 Button(
                     onClick = {
@@ -315,7 +299,7 @@ fun adicionarCliente() {
                         }
                     },
                     modifier = Modifier
-                        .padding(start = 200.dp, top = 10.dp)
+                        .padding(start = 100.dp, top = 10.dp)
                         .height(35.dp)
                         .width(250.dp),
                     colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor)
@@ -325,6 +309,27 @@ fun adicionarCliente() {
                 observarRetornoStatus()
             }
         }
+    }
+}
+
+@Composable
+fun iconCadastroAroma(onClick: () -> Unit) {
+    Row(modifier = Modifier
+        .padding(8.dp)) {
+        IconButton(onClick = onClick) {
+            Icon(
+                imageVector = Icons.Default.Menu,
+                contentDescription = "Cadastrar Aromas"
+            )
+        }
+
+        Text(
+            text = "Cadastrar Aromas",
+            modifier = Modifier.padding(
+                start = 8.dp, top = 16.dp
+            ),
+            style = TextStyle(fontSize = 12.sp)
+        )
     }
 }
 
@@ -483,6 +488,7 @@ fun abrirControleCredito() {
         }
     }
 }
+
 @Composable
 fun fecharControleCredito() {
     IconButton(onClick = {
@@ -518,13 +524,65 @@ private fun validarCampos(cliente: ClienteDto): Boolean {
 }
 
 @Composable
-private fun LimparPagina() {
+private fun limparPagina() {
     if (limparCampos.collectAsState().value) {
         cliente.value = ClienteDto()
         limparCampos.value = false
         retornoStatus.value = 0
     }
 }
+
+@Composable
+private fun aromasView() {
+    if(abrirCadastroAromas.collectAsState().value){
+        val tipo  = "fixa"
+        Card(
+            modifier = Modifier
+                .padding(start = 240.dp, top = 150.dp)
+                .width(350.dp)
+
+        ) {
+            Column(
+                modifier = Modifier.background(cardBackgroundColor)
+            ){
+                OutlinedTextField(
+                    value = cliente.value.limiteCredito,
+                    onValueChange = { cliente.value.limiteCredito = it },
+                    label = {
+                        Text(
+                            "Nome Aroma",
+                            style = TextStyle(fontSize = 12.sp)
+                        )
+                    },
+                    textStyle = TextStyle(fontSize = 16.sp),
+                    modifier = Modifier
+                        .padding(start = 20.dp, top = 15.dp)
+                        .width(250.dp),
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = backgroundColor,
+                        focusedLabelColor = backgroundColor
+                    )
+                )
+
+                Row {
+                    RadioButton(
+                        selected = tipoSelecionado.value == tipo,
+                        onClick = { tipoSelecionado.value = tipo }
+                    )
+                    Text(
+                        modifier = Modifier,
+                        text = tipo,
+                        style = TextStyle(
+                            fontSize = 12.sp
+                        )
+                    )
+                }
+            }
+        }
+    }
+}
+
+
 
 private fun voltarHome() {
     itemMenuSelected.value = 0

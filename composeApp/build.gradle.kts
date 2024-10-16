@@ -21,8 +21,13 @@ kotlin {
             commonWebpackConfig {
                 outputFileName = "composeApp.js"
                 devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
-                    static = (static ?: mutableListOf()).apply {
-                        // Serve sources to debug inside browser
+                    port = 3000 // ou outra porta de sua escolha
+                    open = true // abre o navegador automaticamente
+                    client = KotlinWebpackConfig.DevServer.Client(
+                        overlay = true // Mostra erros de compilação na tela
+                    )
+                    
+                    static = (static ?: mutableListOf()).apply { // Serve sources to debug inside browser
                         add(projectDirPath)
                     }
                 }
