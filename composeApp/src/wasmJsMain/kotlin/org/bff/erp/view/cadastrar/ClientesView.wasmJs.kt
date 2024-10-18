@@ -49,6 +49,7 @@ var cpfValue = mutableStateOf(TextFieldValue(""))
 @Composable
 actual fun clienteScreen() {
     adicionarCliente()
+    IniciarCampos()
     limparPagina()
     abrirControleCredito()
     setupImagem()
@@ -896,6 +897,16 @@ private fun limparPagina() {
         cnpjValue.value = TextFieldValue()
         cpfValue.value = TextFieldValue()
     }
+}
+
+@Composable
+fun IniciarCampos() {
+    clienteDto.value = ClienteDto()
+    enderecoDto.value = EnderecoDto()
+    limparCampos.value = false
+    retornoStatus.value = 0
+    cnpjValue.value = TextFieldValue()
+    cpfValue.value = TextFieldValue()
 }
 
 @Composable
