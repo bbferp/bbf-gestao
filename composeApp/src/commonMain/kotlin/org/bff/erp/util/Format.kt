@@ -24,4 +24,28 @@ object Format {
             else -> "${cleaned.take(3)}.${cleaned.substring(3, 6)}.${cleaned.substring(6, 9)}-${cleaned.takeLast(2)}"
         }
     }
+
+    fun formatTelefone(telefone: String): String {
+        val cleaned = telefone.replace("[^\\d]".toRegex(), "")
+
+        return when {
+            cleaned.length < 3 -> cleaned
+            cleaned.length < 7 -> "(${cleaned.take(2)}) ${cleaned.drop(2)}"
+            cleaned.length < 11 -> "(${cleaned.take(2)}) ${cleaned[2]} ${cleaned.substring(3)}"
+            cleaned.length == 11 -> "(${cleaned.take(2)}) ${cleaned[2]} ${cleaned.substring(3, 7)}-${cleaned.takeLast(4)}"
+            else -> cleaned
+        }
+    }
+
+    fun formatDataNascimento(data: String): String {
+        val cleaned = data.replace("[^\\d]".toRegex(), "")
+
+        return when {
+            cleaned.length < 2 -> cleaned
+            cleaned.length < 4 -> "${cleaned.take(2)}/${cleaned.drop(2)}"
+            cleaned.length < 8 -> "${cleaned.take(2)}/${cleaned.substring(2, 4)}/${cleaned.drop(4)}"
+            cleaned.length == 8 -> "${cleaned.take(2)}/${cleaned.substring(2, 4)}/${cleaned.substring(4, 8)}"
+            else -> cleaned
+        }
+    }
 }
