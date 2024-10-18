@@ -9,7 +9,12 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.bff.erp.view.cadastrar.cadastrarCondPagamento
@@ -37,12 +42,8 @@ fun App() {
             setupNavigation()
             navigationRail()
             setupNavigationCadastrar()
-
         } else {
-            //loginScreen()
-            setupNavigation()
-            navigationRail()
-            setupNavigationCadastrar()
+            loginScreen()
         }
     }
 }
@@ -51,6 +52,10 @@ fun App() {
 fun loginScreen() {
     var usuario by remember { mutableStateOf("") }
     var senha by remember { mutableStateOf("") }
+
+    val focusRequesterUsuario = remember { FocusRequester() }
+    val focusRequesterSenha = remember { FocusRequester() }
+    val focusRequesterLogin = remember { FocusRequester() }
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -73,7 +78,16 @@ fun loginScreen() {
                     label = { Text("Usuário") },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(bottom = 24.dp),
+                        .focusRequester(focusRequesterUsuario)
+                        .padding(bottom = 24.dp)
+                        .onKeyEvent { keyEvent ->
+                            if (keyEvent.key == Key.Tab) {
+                                focusRequesterSenha.requestFocus()
+                                true
+                            } else {
+                                false
+                            }
+                        },
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         focusedBorderColor = backgroundColor,
                         focusedLabelColor = backgroundColor
@@ -85,8 +99,17 @@ fun loginScreen() {
                     onValueChange = { senha = it },
                     label = { Text("Senha") },
                     modifier = Modifier
+                        .focusRequester(focusRequesterSenha)
                         .fillMaxWidth()
-                        .padding(bottom = 24.dp),
+                        .padding(bottom = 24.dp)
+                        .onKeyEvent { keyEvent ->
+                            if (keyEvent.key == Key.Tab) {
+                                focusRequesterLogin.requestFocus()
+                                true
+                            } else {
+                                false
+                            }
+                        },
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         focusedBorderColor = backgroundColor,
                         focusedLabelColor = backgroundColor
@@ -97,7 +120,9 @@ fun loginScreen() {
                     onClick = {
                        validarUsuario(usuario,senha)
                     },
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .focusRequester(focusRequesterLogin),
                     colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor)
                 ) {
                     Text(text = "Entrar", color = Color.White)

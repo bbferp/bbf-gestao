@@ -9,10 +9,12 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.bff.erp.model.Cliente
+import org.bff.erp.model.Endereco
 import org.bff.erp.model.Produtos
 import org.bff.erp.model.Usuario
 import org.bff.erp.util.BaseApi.BASE
 import org.bff.erp.viewModel.retornoStatus
+import org.bff.erp.viewModel.usuarioLogado
 import org.bff.erp.viewModel.usuarioValidado
 import org.w3c.files.File
 import org.w3c.xhr.XMLHttpRequest
@@ -24,7 +26,6 @@ actual suspend fun setUsuarioLogado(usuario: Usuario) {
         CoroutineScope(Dispatchers.Main).launch {
             val prefix = usuario.nome
             val sufix = usuario.senha
-
 
             XMLHttpRequest().apply {
                 open(
@@ -60,20 +61,17 @@ actual suspend fun setCadastroCliente(cliente: Cliente) {
         CoroutineScope(Dispatchers.Main).launch {
             var allClientesList = mutableListOf<Cliente>()
 
-           // val prefix = usuarioLogado.value.nome
-           // val sufix = usuarioLogado.value.senha
-            val prefix = "aromas"
-            val sufix = "01"
+            val prefix = usuarioLogado.value.nome
+            val sufix = usuarioLogado.value.senha
+
 
             imagemSelecionada.value?.let {
                 setImageCliente(it,cliente)
                 cliente.clienteTemImagem = true
             }
 
-
             allClientesList = getAllClientes(prefix,sufix)
             allClientesList.add(cliente)
-
 
             XMLHttpRequest().apply {
                 open(
@@ -130,11 +128,8 @@ suspend fun getAllClientes(prefix: String, sufix: String): MutableList<Cliente> 
 
 actual suspend fun setUpdateCliente(clientesList: MutableList<Cliente>) {
     try {
-            // val prefix = usuarioLogado.value.nome
-            // val sufix = usuarioLogado.value.senha
-            val prefix = "aromas"
-            val sufix = "01"
-
+            val prefix = usuarioLogado.value.nome
+             val sufix = usuarioLogado.value.senha
 
             XMLHttpRequest().apply {
                 open(
@@ -169,11 +164,8 @@ actual suspend fun setUpdateCliente(clientesList: MutableList<Cliente>) {
 
 fun setImageCliente(file: File, cliente: Cliente) {
     try {
-        // val prefix = usuarioLogado.value.nome
-        // val sufix = usuarioLogado.value.senha
-        val prefix = "aromas"
-        val sufix = "01"
-
+         val prefix = usuarioLogado.value.nome
+         val sufix = usuarioLogado.value.senha
 
         XMLHttpRequest().apply {
             open(
@@ -204,3 +196,27 @@ fun setImageCliente(file: File, cliente: Cliente) {
     }
 }
 
+actual suspend fun getCep(cep: String): Endereco {
+    var endereco = Endereco()
+
+    try {
+        val response = window.fetch("https://viacep.com.br/ws/$cep/json/").then { res ->
+            if (res.ok) {
+                res.text()
+            } else {
+                throw Exception("Erro na requisição: ${res.status} ${res.statusText}")
+            }
+        }
+
+        response.await<JsString>().toString().let { retorno ->
+            val json = Json { ignoreUnknownKeys = true }
+            endereco = json.decodeFromString(retorno)
+            println("Dados do CEP: $endereco")
+
+        }
+    } catch (e: Exception) {
+        println("Erro ao buscar o CEP: ${e.message}")
+    }
+
+    return endereco
+}
